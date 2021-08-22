@@ -63,3 +63,9 @@
   background-size: cover;
   image-rendering: pixelated;
 }
+
+.tile-4096 {
+  background-image: url(ancient-debris.png);
+  background-size: cover;
+  image-rendering: pixelated;
+}
