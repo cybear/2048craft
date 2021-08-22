@@ -47,7 +47,7 @@
 }
 
 .tile-512 {
-  background-image: url(512.png);
+  background-image: url(512.gif);
   background-size: cover;
   image-rendering: pixelated;
 }
