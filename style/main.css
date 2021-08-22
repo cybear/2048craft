@@ -195,11 +195,8 @@ hr {
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url(lava.png);
-  background-size: cover;
-  image-rendering: pixelated;
+  background-color: rgba(225, 30, 1, 0.5);
   z-index: 100;
-  color: black;
   text-align: center;
   -webkit-animation: fade-in 800ms ease 1200ms;
   -moz-animation: fade-in 800ms ease 1200ms;
@@ -209,6 +206,7 @@ hr {
   animation-fill-mode: both;
 }
 .game-container .game-message p {
+  color: lightblue;
   font-size: 60px;
   font-weight: bold;
   height: 60px;
@@ -687,11 +685,8 @@ hr {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url(lava.png);
-    background-size: cover;
-    image-rendering: pixelated;
+    background-color: rgba(225, 30, 1, 0.5);
     z-index: 100;
-    color: black;
     text-align: center;
     -webkit-animation: fade-in 800ms ease 1200ms;
     -moz-animation: fade-in 800ms ease 1200ms;
@@ -701,6 +696,7 @@ hr {
     animation-fill-mode: both;
   }
   .game-container .game-message p {
+    color: lightblue;
     font-size: 60px;
     font-weight: bold;
     height: 60px;
