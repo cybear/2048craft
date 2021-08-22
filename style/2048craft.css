@@ -75,3 +75,9 @@
   background-size: cover;
   image-rendering: pixelated;
 }
+
+.tile-16384 {
+  background-image: url(whither-skeleton-skull.png);
+  background-size: cover;
+  image-rendering: pixelated;
+}
