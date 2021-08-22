@@ -69,3 +69,9 @@
   background-size: cover;
   image-rendering: pixelated;
 }
+
+.tile-8192 {
+  background-image: url(tnt.png);
+  background-size: cover;
+  image-rendering: pixelated;
+}
