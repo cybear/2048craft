@@ -125,8 +125,18 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 };
 
 HTMLActuator.prototype.message = function (won) {
+  var messages = [
+    "You fell from a high place",
+    "You tried to swim in lava",
+    "You tried to swim in lava",
+    "You drowned",
+    "You were slain by an enderman",
+    "You fell from a high place",
+    "You were killed by an iron golem",
+    "You were killed by magic",
+  ];
   var type    = won ? "game-won" : "game-over";
-  var message = won ? "You win!" : "Game over!";
+  var message = won ? "You win!" : messages[~~(Math.random() * messages.length)];
 
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
