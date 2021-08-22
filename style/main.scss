@@ -1,4 +1,5 @@
 @import "helpers";
+@import "2048craft.css";
 @import "fonts/clear-sans.css";
 
 $field-width: 500px;
@@ -17,7 +18,7 @@ $tile-gold-color: #edc22e;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
 
 $game-container-margin-top: 40px;
-$game-container-background: #bbada0;
+$game-container-background: #000000;
 
 $transition-speed: 100ms;
 
@@ -201,9 +202,11 @@ hr {
       right: 0;
       bottom: 0;
       left: 0;
-      background: rgba($tile-color, .5);
+      background-image: url(lava.png);
+      background-size: cover;
+      image-rendering: pixelated;
       z-index: 100;
-
+      color: black;
       text-align: center;
 
       p {
@@ -212,8 +215,6 @@ hr {
         height: 60px;
         line-height: 60px;
         margin-top: 222px;
-        // height: $field-width;
-        // line-height: $field-width;
       }
 
       .lower {
@@ -223,12 +224,11 @@ hr {
 
       a {
         @include button;
+        background: #000;
         margin-left: 9px;
-        // margin-top: 59px;
-
-	&.keep-playing-button {
-	  display: none;
-	}
+        &.keep-playing-button {
+          display: none;
+        }
       }
 
       @include animation(fade-in 800ms ease $transition-speed * 12);
@@ -276,7 +276,9 @@ hr {
 
     border-radius: $tile-border-radius;
 
-    background: rgba($tile-color, .35);
+    background-image: url(grass.png);
+    background-size: cover;
+    image-rendering: pixelated;
 
     &:last-child {
       margin-right: 0;
@@ -316,13 +318,9 @@ hr {
 
   .tile-inner {
     border-radius: $tile-border-radius;
-
-    background: $tile-color;
     text-align: center;
-    font-weight: bold;
     z-index: 10;
-
-    font-size: 55px;
+    color: #fff;
   }
 
   // Movement transition
@@ -362,17 +360,6 @@ hr {
       $special-background: nth($nth-color, 1);
       $bright-color: nth($nth-color, 2);
 
-      @if $special-background {
-        $mixed-background: mix($special-background, $mixed-background, 55%);
-      }
-
-      @if $bright-color {
-        color: $bright-text-color;
-      }
-
-      // Set background
-      background: $mixed-background;
-
       // Add glow
       $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
 
@@ -404,10 +391,6 @@ hr {
   // Super tiles (above 2048)
   &.tile-super .tile-inner {
     color: $bright-text-color;
-    background: mix(#333, $tile-gold-color, 95%);
-
-    font-size: 30px;
-
     @include smaller($mobile-threshold) {
       font-size: 10px;
     }
