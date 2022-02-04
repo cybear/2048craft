@@ -134,6 +134,7 @@ HTMLActuator.prototype.message = function (won) {
     "You fell from a high place",
     "You were killed by an iron golem",
     "You were killed by magic",
+    "You were blown up by a creeper",
   ];
   var type    = won ? "game-won" : "game-over";
   var message = won ? "You win!" : messages[~~(Math.random() * messages.length)];
