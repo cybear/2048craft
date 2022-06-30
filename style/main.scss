@@ -1,3 +1,5 @@
+@use "game-field";
+@use "mixins";
 @import "helpers";
 @import "2048craft.css";
 @import "fonts/clear-sans.css";
@@ -105,8 +107,8 @@ h1.title {
     font-weight: bold;
     color: rgba($text-color, .9);
     z-index: 100;
-    @include animation(move-up 600ms ease-in);
-    @include animation-fill-mode(both);
+    animation: move-up 600ms ease-in;
+    animation-fill-mode: both;
   }
 }
 
@@ -159,162 +161,19 @@ hr {
   }
 }
 
-// Styles for buttons
-@mixin button {
-  display: inline-block;
-  background: darken($game-container-background, 20%);
-  border-radius: 3px;
-  padding: 0 20px;
-  text-decoration: none;
-  color: $bright-text-color;
-  height: 40px;
-  line-height: 42px;
-}
-
-// Game field mixin used to render CSS at different width
-@mixin game-field {
-  .game-container {
-    margin-top: $game-container-margin-top;
-    position: relative;
-    padding: $grid-spacing;
-
-    cursor: default;
-    -webkit-touch-callout: none;
-    -ms-touch-callout: none;
-
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-
-    -ms-touch-action: none;
-    touch-action: none;
-
-    background: $game-container-background;
-    border-radius: $tile-border-radius * 2;
-    width: $field-width;
-    height: $field-width;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    .game-message {
-      display: none;
-
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: rgba(225,30,1,0.5);
-      // background-size: cover;
-      // image-rendering: pixelated;
-      z-index: 100;
-      text-align: center;
-      
-      p {
-        color: lightblue;
-        font-size: 60px;
-        font-weight: bold;
-        height: 60px;
-        line-height: 60px;
-        margin-top: 222px;
-      }
-
-      .lower {
-        display: block;
-        margin-top: 59px;
-      }
-
-      a {
-        @include button;
-        background: #000;
-        margin-left: 9px;
-        &.keep-playing-button {
-          display: none;
-        }
-      }
-
-      @include animation(fade-in 800ms ease $transition-speed * 12);
-      @include animation-fill-mode(both);
-
-      &.game-won {
-        background: rgba($tile-gold-color, .5);
-        color: $bright-text-color;
-
-	a.keep-playing-button {
-	  display: inline-block;
-	}
-      }
-
-      &.game-won, &.game-over {
-        display: block;
-      }
-    }
-  }
-
-  .grid-container {
-    position: absolute;
-    z-index: 1;
-  }
-
-  .grid-row {
-    margin-bottom: $grid-spacing;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    &:after {
-      content: "";
-      display: block;
-      clear: both;
-    }
-  }
-
-  .grid-cell {
-    width: $tile-size;
-    height: $tile-size;
-    margin-right: $grid-spacing;
-    float: left;
-
-    border-radius: $tile-border-radius;
-
-    background-image: url(grass.png);
-    background-size: cover;
-    image-rendering: pixelated;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  .tile-container {
-    position: absolute;
-    z-index: 2;
-  }
-
-  .tile {
-    &, .tile-inner {
-      width: ceil($tile-size);
-      height: ceil($tile-size);
-      line-height: ceil($tile-size);
-    }
-
-    // Build position classes
-    @for $x from 1 through $grid-row-cells {
-      @for $y from 1 through $grid-row-cells {
-        &.tile-position-#{$x}-#{$y} {
-          $xPos: floor(($tile-size + $grid-spacing) * ($x - 1));
-          $yPos: floor(($tile-size + $grid-spacing) * ($y - 1));
-          @include transform(translate($xPos, $yPos));
-        }
-      }
-    }
-  }
-}
-
 // End of game-field mixin
-@include game-field;
+@include game-field.game-field(
+  $bright-text-color,
+  $field-width,
+  $game-container-background,
+  $game-container-margin-top,
+  $grid-row-cells,
+  $grid-spacing,
+  $tile-border-radius,
+  $tile-gold-color,
+  $tile-size,
+  $transition-speed,  
+);
 
 .tile {
   position: absolute; // Makes transforms relative to the top-left corner
@@ -403,38 +262,38 @@ hr {
 @include keyframes(appear) {
   0% {
     opacity: 0;
-    @include transform(scale(0));
+    transform: scale(0);
   }
 
   100% {
     opacity: 1;
-    @include transform(scale(1));
+    transform: scale(1);
   }
 }
 
 .tile-new .tile-inner {
-  @include animation(appear 200ms ease $transition-speed);
-  @include animation-fill-mode(backwards);
+  animation: appear 200ms ease $transition-speed;
+  animation-fill-mode: backwards;
 }
 
 @include keyframes(pop) {
   0% {
-    @include transform(scale(0));
+    transform: scale(0);
   }
 
   50% {
-    @include transform(scale(1.2));
+    transform: scale(1.2);
   }
 
   100% {
-    @include transform(scale(1));
+    transform: scale(1);
   }
 }
 
 .tile-merged .tile-inner {
   z-index: 20;
-  @include animation(pop 200ms ease $transition-speed);
-  @include animation-fill-mode(backwards);
+  animation: pop 200ms ease $transition-speed;
+  animation-fill-mode: backwards;
 }
 
 .above-game {
@@ -448,7 +307,7 @@ hr {
 }
 
 .restart-button {
-  @include button;
+  @include mixins.button($bright-text-color, $game-container-background);
   display: block;
   text-align: center;
   float: right;
@@ -513,7 +372,18 @@ hr {
   }
 
   // Render the game field at the right width
-  @include game-field;
+  @include game-field.game-field(
+    $bright-text-color,
+    $field-width,
+    $game-container-background,
+    $game-container-margin-top,
+    $grid-row-cells,
+    $grid-spacing,
+    $tile-border-radius,
+    $tile-gold-color,
+    $tile-size,
+    $transition-speed,  
+  );
 
   // Rest of the font-size adjustments in the tile class
   .tile .tile-inner {

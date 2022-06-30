@@ -1,0 +1,149 @@
+@use 'mixins';
+
+// Game field mixin used to render CSS at different width
+@mixin game-field(
+  $bright-text-color,
+  $field-width,
+  $game-container-background,
+  $game-container-margin-top,
+  $grid-row-cells,
+  $grid-spacing,
+  $tile-border-radius,
+  $tile-gold-color,
+  $tile-size,
+  $transition-speed,  
+) {
+  .game-container {
+    margin-top: $game-container-margin-top;
+    position: relative;
+    padding: $grid-spacing;
+
+    cursor: default;
+    -webkit-touch-callout: none;
+    -ms-touch-callout: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    touch-action: none;
+
+    background: $game-container-background;
+    border-radius: $tile-border-radius * 2;
+    width: $field-width;
+    height: $field-width;
+    box-sizing: border-box;
+
+    .game-message {
+      display: none;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(225,30,1,0.5);
+      z-index: 100;
+      text-align: center;
+      
+      p {
+        color: lightblue;
+        font-size: 60px;
+        font-weight: bold;
+        height: 60px;
+        line-height: 60px;
+        margin-top: 222px;
+      }
+
+      .lower {
+        display: block;
+        margin-top: 59px;
+      }
+
+      a {
+        @include mixins.button($bright-text-color, $game-container-background);
+        background: #000;
+        margin-left: 9px;
+        &.keep-playing-button {
+          display: none;
+        }
+      }
+
+      // @include animation(fade-in 800ms ease $transition-speed * 12);
+      // @include animation-fill-mode(both);
+
+      &.game-won {
+        background: rgba($tile-gold-color, .5);
+        color: $bright-text-color;
+
+	a.keep-playing-button {
+	  display: inline-block;
+	}
+      }
+
+      &.game-won, &.game-over {
+        display: block;
+      }
+    }
+  }
+
+  .grid-container {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .grid-row {
+    margin-bottom: $grid-spacing;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  }
+
+  .grid-cell {
+    width: $tile-size;
+    height: $tile-size;
+    margin-right: $grid-spacing;
+    float: left;
+
+    border-radius: $tile-border-radius;
+
+    background-image: url(grass.png);
+    background-size: cover;
+    image-rendering: pixelated;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .tile-container {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .tile {
+    &, .tile-inner {
+      width: ceil($tile-size);
+      height: ceil($tile-size);
+      line-height: ceil($tile-size);
+    }
+
+    // Build position classes
+    @for $x from 1 through $grid-row-cells {
+      @for $y from 1 through $grid-row-cells {
+        &.tile-position-#{$x}-#{$y} {
+          $xPos: floor(($tile-size + $grid-spacing) * ($x - 1));
+          $yPos: floor(($tile-size + $grid-spacing) * ($y - 1));
+          transform: translate($xPos, $yPos);
+        }
+      }
+    }
+  }
+}

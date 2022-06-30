@@ -1,0 +1,11 @@
+// Styles for buttons
+@mixin button($bright-text-color, $game-container-background) {
+  display: inline-block;
+  background: darken($game-container-background, 20%);
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: $bright-text-color;
+  height: 40px;
+  line-height: 42px;
+}
