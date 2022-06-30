@@ -661,7 +661,7 @@ hr {
   .game-container {
     margin-top: 40px;
     position: relative;
-    padding: 15px;
+    padding: 10px;
     cursor: default;
     -webkit-touch-callout: none;
     -ms-touch-callout: none;
@@ -672,8 +672,8 @@ hr {
     touch-action: none;
     background: #000000;
     border-radius: 6px;
-    width: 500px;
-    height: 500px;
+    width: 278px;
+    height: 278px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -751,12 +751,11 @@ hr {
   }
 
   .grid-cell {
-    width: 106.25px;
-    height: 106.25px;
+    width: 53px;
+    height: 53px;
     margin-right: 15px;
     float: left;
     border-radius: 3px;
-    background-image: url(grass.png);
     background-size: cover;
     image-rendering: pixelated;
   }
@@ -770,9 +769,9 @@ hr {
   }
 
   .tile, .tile .tile-inner {
-    width: 107px;
-    height: 107px;
-    line-height: 107px;
+    width: 54px;
+    height: 54px;
+    line-height: 54px;
   }
   .tile.tile-position-1-1 {
     -webkit-transform: translate(0px, 0px);
@@ -872,7 +871,7 @@ hr {
   }
 
   .tile .tile-inner {
-    font-size: 35px;
+    font-size: 20px;
   }
 
   .game-message p {
